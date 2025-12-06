@@ -296,7 +296,7 @@ local function update_contents_display(main_frame, entity)
 
   -- Show message if no items
   if item_count == 0 then
-    local empty_label = contents_table.add({
+    local empty_label = contents_table_provide.add({
       type = "label",
       caption = {"ltn-reader.no-items"}
     })
