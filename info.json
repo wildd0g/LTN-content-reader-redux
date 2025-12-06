@@ -1,0 +1,11 @@
+{
+  "name": "LTN_Content_Reader_Redux",
+  "version": "2.0.0",
+  "title": "LTN Content Reader Redux",
+  "author": "wild_dog",
+  "contact": "https://github.com/wildd0g/LTN-content-reader-redux",
+  "homepage": "https://github.com/wildd0g/LTN-content-reader-redux",
+  "description": "Display LTN's Provided and Requested content for specific Network ID's as combinator output, 2.0 with surfaces support.\nRevival of content reader based on the works of Optera, integrating surface support based on fork from Kolobok12309, and 2.0 update from vinnizp",
+  "factorio_version": "2.0",
+  "dependencies": ["base >= 2.0", "flib >= 0.6.0", "LogisticTrainNetwork >= 1.16.0"]
+}
