@@ -1,9 +1,12 @@
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.1
-Date: 2025-12-?
+Date: 2026-01-24
+  Features:
+    - Updated icons to be more in line with LTN Combinator modernised.
   Bugfixes:
-  - updated the dependency information to more accurately reflect dependent versions (may work with older versions, but that is untested and unsupported).
-  - updated description to be more accurate and concise.
+    - updated the dependency information to more accurately reflect dependent versions (may work with older versions, but that is untested and unsupported).
+    - updated description to be more accurate and concise.
+    - fixed a migration bug
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.0
 Date: 2025-12-7
