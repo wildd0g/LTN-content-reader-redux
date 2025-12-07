@@ -1,4 +1,6 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.1
+---------------------------------------------------------------------------------------------------
 Version: 2.0.0
 Date: 2025-11-30
   Features:
@@ -6,7 +8,7 @@ Date: 2025-11-30
     - Surface support
     - Support placing reader on space platforms
     - (Re-)added HR graphics
-    - Addex Exact mode for network ID.
+    - Added Exact mode for network ID.
       Normally, LTN networks function as a bitmask to determine if station request/provided are visible.
       Exact mode only searches the exact same network ID.
   Optimizations:
