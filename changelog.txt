@@ -1,16 +1,22 @@
 ---------------------------------------------------------------------------------------------------
+Version: 2.0.1
+Date: 2025-12-?
+  Bugfixes:
+  - updated the dependency information to more accurately reflect dependent versions (may work with older versions, but that is untested and unsupported).
+  - updated description to be more accurate and concise.
+---------------------------------------------------------------------------------------------------
 Version: 2.0.0
-Date: 2025-11-30
+Date: 2025-12-7
   Features:
-    - Updated for factorio 2.0
-    - Surface support
-    - Support placing reader on space platforms
-    - (Re-)added HR graphics
+    - Updated for factorio 2.0.
+    - Surface support.
+    - Support placing reader on space platforms.
+    - (Re-)added HR graphics.
     - Addex Exact mode for network ID.
       Normally, LTN networks function as a bitmask to determine if station request/provided are visible.
       Exact mode only searches the exact same network ID.
   Optimizations:
-    - Applied on_event filtering to decrease needless event evaluation
+    - Applied on_event filtering to decrease needless event evaluation.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.3
 Date: 2022-11-18
