@@ -1,0 +1,2 @@
+/c __LTN_Content_Reader_Redux__ game.player.print(serpent.dump(storage.ltn_requested[13][-1]))
+/c __LTN_Content_Reader_Redux__ game.player.print(serpent.dump(storage.ltn_stops))

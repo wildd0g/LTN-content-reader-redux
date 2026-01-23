@@ -41,6 +41,7 @@ end
 
 -- Handle LTN dispatcher update event
 function ltn_interface.on_dispatcher_updated(event)
+  
   -- Initialize storage tables
   storage.ltn_provided = {}
   storage.ltn_requested = {}
@@ -53,10 +54,13 @@ function ltn_interface.on_dispatcher_updated(event)
   for stop_id, items in pairs(event.provided_by_stop or {}) do
     local network_id = storage.ltn_stops[stop_id] and storage.ltn_stops[stop_id].network_id
     local surface_idx = storage.ltn_stops[stop_id] and storage.ltn_stops[stop_id].entity.surface.index
-	  if surface_idx then
+	  
+    if not (surface_idx and network_id) then
+      game.print("Malformed ltn stop data on provider:")
+      game.print("Stop " .. stop_id .. ": " .. serpent.dump(storage.ltn_stops[stop_id]))
+      game.print("Missed items: " .. serpent.dump(items))
+    else
 		  storage.ltn_provided[surface_idx] = storage.ltn_provided[surface_idx] or {}
-	  end
-    if network_id then
       storage.ltn_provided[surface_idx][network_id] = storage.ltn_provided[surface_idx][network_id] or {}
       storage.ltn_provided[all_surfaces_index][network_id] = storage.ltn_provided[all_surfaces_index][network_id] or {}
       for item, count in pairs(items) do
@@ -72,17 +76,18 @@ function ltn_interface.on_dispatcher_updated(event)
     local network_id = storage.ltn_stops[stop_id] and storage.ltn_stops[stop_id].network_id
     local surface_idx = storage.ltn_stops[stop_id] and storage.ltn_stops[stop_id].entity.surface.index
 
-    if surface_idx then
-		  storage.ltn_requested[surface_idx] = storage.ltn_requested[surface_idx] or {}
-      
-      if network_id then
-        storage.ltn_requested[surface_idx][network_id] = storage.ltn_requested[surface_idx][network_id] or {}
-        storage.ltn_requested[all_surfaces_index][network_id] = storage.ltn_requested[all_surfaces_index][network_id] or {}  
-        for item, count in pairs(items) do
-          -- Store as negative for requests
-          storage.ltn_requested[surface_idx][network_id][item] = (storage.ltn_requested[surface_idx][network_id][item] or 0) - count
-          storage.ltn_requested[all_surfaces_index][network_id][item] = (storage.ltn_requested[all_surfaces_index][network_id][item] or 0) - count
-        end
+    if not (surface_idx and network_id) then
+      game.print("Malformed ltn stop data  on requester:")
+      game.print("Stop " .. stop_id .. ": "..serpent.dump(storage.ltn_stops[stop_id]))
+      game.print("Missed items: " .. serpent.dump(items))
+    else
+      storage.ltn_requested[surface_idx] = storage.ltn_requested[surface_idx] or {}
+      storage.ltn_requested[surface_idx][network_id] = storage.ltn_requested[surface_idx][network_id] or {}
+      storage.ltn_requested[all_surfaces_index][network_id] = storage.ltn_requested[all_surfaces_index][network_id] or {}  
+      for item, count in pairs(items) do
+        -- Store as negative for requests
+        storage.ltn_requested[surface_idx][network_id][item] = (storage.ltn_requested[surface_idx][network_id][item] or 0) - count
+        storage.ltn_requested[all_surfaces_index][network_id][item] = (storage.ltn_requested[all_surfaces_index][network_id][item] or 0) - count
       end
     end
   end
@@ -92,16 +97,17 @@ function ltn_interface.on_dispatcher_updated(event)
   for train_id, delivery in pairs(event.deliveries or {}) do
     local surface_idx = storage.ltn_stops[delivery.from_id] and storage.ltn_stops[delivery.from_id].entity.surface.index
 
-	if surface_idx then
-    storage.ltn_deliveries[surface_idx] = storage.ltn_deliveries[surface_idx] or {}
-
-    if delivery.network_id then
-        storage.ltn_deliveries[surface_idx][delivery.network_id] = storage.ltn_deliveries[surface_idx][delivery.network_id] or {}
-        storage.ltn_deliveries[all_surfaces_index][delivery.network_id] = storage.ltn_deliveries[all_surfaces_index][delivery.network_id] or {}
-        for item, count in pairs(delivery.shipment) do
-          storage.ltn_deliveries[surface_idx][delivery.network_id][item] = (storage.ltn_deliveries[surface_idx][delivery.network_id][item] or 0) + count
-          storage.ltn_deliveries[all_surfaces_index][delivery.network_id][item] = (storage.ltn_deliveries[all_surfaces_index][delivery.network_id][item] or 0) + count
-        end
+    if not (surface_idx and delivery.network_id) then
+      game.print("Malformed ltn stop data on delivery:")
+      game.print("Train " .. train_id .. ": " .. serpent.dump(delivery))
+      game.print("Missed items: " .. serpent.dump(delivery.shipment))
+    else
+      storage.ltn_deliveries[surface_idx] = storage.ltn_deliveries[surface_idx] or {}
+      storage.ltn_deliveries[surface_idx][delivery.network_id] = storage.ltn_deliveries[surface_idx][delivery.network_id] or {}
+      storage.ltn_deliveries[all_surfaces_index][delivery.network_id] = storage.ltn_deliveries[all_surfaces_index][delivery.network_id] or {}
+      for item, count in pairs(delivery.shipment) do
+        storage.ltn_deliveries[surface_idx][delivery.network_id][item] = (storage.ltn_deliveries[surface_idx][delivery.network_id][item] or 0) + count
+        storage.ltn_deliveries[all_surfaces_index][delivery.network_id][item] = (storage.ltn_deliveries[all_surfaces_index][delivery.network_id][item] or 0) + count
       end
     end
   end
