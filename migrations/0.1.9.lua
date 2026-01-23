@@ -3,12 +3,24 @@ for i, force in pairs(game.forces) do
   force.reset_technologies()
   
   if force.technologies["circuit-network"].researched then
-    force.recipes["ltn-provider-reader"].enabled = true
-    force.recipes["ltn-requester-reader"].enabled = true
-    force.recipes["ltn-delivery-reader"].enabled = true
+    if force.recipes["ltn-provider-reader"] then
+      force.recipes["ltn-provider-reader"].enabled= true
+    end
+    if force.recipes["ltn-requester-reader"] then
+      force.recipes["ltn-requester-reader"].enabled = true
+    end
+    if force.recipes["ltn-delivery-reader"] then
+      force.recipes["ltn-delivery-reader"].enabled = true
+    end
   else
-    force.recipes["ltn-provider-reader"].enabled = false
-    force.recipes["ltn-requester-reader"].enabled = false
-    force.recipes["ltn-delivery-reader"].enabled = false
+    if force.recipes["ltn-provider-reader"] then
+      force.recipes["ltn-provider-reader"].enabled= false
+    end
+    if force.recipes["ltn-requester-reader"] then
+      force.recipes["ltn-requester-reader"].enabled = false
+    end
+    if force.recipes["ltn-delivery-reader"] then
+      force.recipes["ltn-delivery-reader"].enabled = false
+    end
   end
 end
