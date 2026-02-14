@@ -31,8 +31,9 @@ local GUI_REFRESH_BUTTON = "ltn_reader_refresh_button"
 
 -- Parse item string format "type,name"
 local function parse_item_string(item_string)
-  local item_type, item_name = string.match(item_string, "([^,]+),([^,]+)")
-  return item_type, item_name
+  local item_type, item_name, item_quality = string.match(item_string, '^([^,]+),([^,]+),?([^,]*)')
+  item_quality = (item_quality and #item_quality > 0) and item_quality or 'normal'
+  return item_type, item_name, item_quality
 end
 
 -- Format number with thousand separators
@@ -82,7 +83,7 @@ local function populate_grid(contents_table, network_id, surface_idx, content_ty
   -- Populate grid with item icons
   local item_count = 0
   for _, data in ipairs(sorted_items) do
-    local item_type, item_name = parse_item_string(data.item)
+    local item_type, item_name, item_quality = parse_item_string(data.item)
 
     if item_type and item_name then
       -- Validate prototype exists
@@ -100,19 +101,33 @@ local function populate_grid(contents_table, network_id, surface_idx, content_ty
         local formatted_count = format_number(data.count)
         local tooltip_text = proto.localised_name
         if type(tooltip_text) == "table" then
-          tooltip_text = {"", tooltip_text, "\n", formatted_count}
+          tooltip_text = {"", "Exact count: ", formatted_count}
         else
-          tooltip_text = tooltip_text .. "\n" .. formatted_count
+          tooltip_text = "Exact count: " .. formatted_count
         end
 
         -- Icon button with count and colored background (enabled so it's not grayed out)
-        contents_table.add({
+        local button = {
           type = "sprite-button",
           sprite = item_type .. "/" .. item_name,
           number = math.abs(data.count),
+          quality = item_quality,
           tooltip = tooltip_text,
           style = button_style
-        })
+        }
+        if item_type == "item" then
+          button.elem_tooltip = {
+            type = 'item-with-quality',
+            name = item_name,
+            quality = item_quality
+          }
+        else
+          button.elem_tooltip = {
+            type = 'fluid',
+            name = item_name
+          }
+        end
+        contents_table.add(button)
       end
     end
   end
