@@ -4,6 +4,12 @@ Date: 2026-02-?
   Features:
     - Updated GUI tooltips.
     - Quality support in GUI.
+  Changes:
+    - Removed Update Interval setting. We'll just follow LTN's update setting.
+      There is no practical reason to update at a different rate, faster won't have any effect because LTN hasn't updated.
+      Slower doesn't save apriciable processing speed, LTN is much more processing intensive, content reader just parses its output.
+      If speed ups are required, slow LTN's update Update Interval, content reader will follow.
+      If specific signals need to be held longer, make a cirquit network device that holds the signal.
   Bugfixes:
     - 
 ---------------------------------------------------------------------------------------------------

@@ -1,19 +1,17 @@
 data:extend({
   {
-    type = "int-setting",
-    name = "ltn_content_reader_update_interval",
+    type = "bool-setting",
+    name = "ltn_content_reader_global_groups",
     order = "aa",
     setting_type = "runtime-global",
-    default_value = 120,
-    minimum_value = 1,
-    maximum_value = 216000, -- 1h
+    default_value = false,
   },
   {
     type = "string-setting",
     name = "ltn_content_reader_default_surface",
     order = "ab",
     setting_type = "runtime-global",
-    default_value = "all",
+    default_value = "current",
     allowed_values = {"all", "current"},
   },
 })

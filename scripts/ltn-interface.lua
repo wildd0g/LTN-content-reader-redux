@@ -5,7 +5,6 @@ local ltn_interface = {}
 local all_surfaces_index = -1
 -- Default network ID from LTN settings
 local default_network = -1
-local default_surface = settings.global["ltn_content_reader_default_surface"].value
 
 -- Initialize LTN integration
 function ltn_interface.init()
@@ -28,9 +27,6 @@ end
 function ltn_interface.on_setting_changed(event)
   if event.setting == "ltn-stop-default-network" then
     default_network = settings.global["ltn-stop-default-network"].value
-  end
-  if event.setting == "ltn_content_reader_default_surface" then
-    default_surface = settings.global["ltn_content_reader_default_surface"].value
   end
 end
 

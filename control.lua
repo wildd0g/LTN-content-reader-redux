@@ -2,6 +2,7 @@
 -- A well-organized mod for viewing LTN network content with Provider/Requester filtering
 
 -- Load modules
+local settings_manager = require("scripts/settings")
 local ltn_interface = require("scripts/ltn-interface")
 local entity_tracker = require("scripts/entity-tracker")
 local gui = require("scripts/gui")
@@ -79,6 +80,7 @@ local function register_events()
 
   -- Runtime setting changes
 
+  script.on_event(defines.events.on_runtime_mod_setting_changed, settings_manager.on_setting_changed)
   script.on_event(defines.events.on_runtime_mod_setting_changed, ltn_interface.on_setting_changed)
 
   -- Entity lifecycle events
