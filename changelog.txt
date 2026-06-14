@@ -1,9 +1,14 @@
 ---------------------------------------------------------------------------------------------------
-Version: 2.0.2
-Date: 2026-02-?
+Version: 2.1.0
+Date: 2026-06-14
   Features:
     - Updated GUI tooltips.
-    - Quality support in GUI.
+    - Quality support.
+    - Reworked how combinator settings are stored to a deactivated logistics signal section.
+      This makes LTN Content Readers now compatible with storing the settings in blueprints and shift+right click copying of settings.
+      This rework requires migration and is not backwards/downgrade compatible.
+    - Content readers can now use global logistics groups to update all readers with identical settings simultaniously.
+      This also exposes their output as logistics groups (see mod settings).
   Changes:
     - Removed Update Interval setting. We'll just follow LTN's update setting.
       There is no practical reason to update at a different rate, faster won't have any effect because LTN hasn't updated.
@@ -11,7 +16,7 @@ Date: 2026-02-?
       If speed ups are required, slow LTN's update Update Interval, content reader will follow.
       If specific signals need to be held longer, make a cirquit network device that holds the signal.
   Bugfixes:
-    - 
+    - Fixed a bug where the combinator output would not match the (correct) contents of the GUI.
 ---------------------------------------------------------------------------------------------------
 Version: 2.0.1
 Date: 2026-01-24
